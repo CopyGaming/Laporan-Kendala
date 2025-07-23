@@ -159,11 +159,11 @@
         <label for="jenis" class="form-label">Jenis Kendala</label> <br>
         <input type="radio" id="email" name="jenis" value="email">
         <label for="jenis" class="form-label">email</label> <br>
-        <input type="radio" id="classroom" name="jenis" value="google classroom" required> 
+        <input type="radio" id="classroom" name="jenis" value="google classroom" required>
         <label for="jenis" class="form-label">google classroom</label> <br>
-        <input type="radio" id="myithb" name="jenis" value="myITHB"> 
+        <input type="radio" id="myithb" name="jenis" value="myITHB">
         <label for="jenis" class="form-label">myITHB</label> <br>
-        <input type="radio" id="lainnya" name="jenis" value="kendala lainnya" required> 
+        <input type="radio" id="lainnya" name="jenis" value="kendala lainnya" required>
         <label for="jenis" class="form-label">kendala lainnya</label>
       </div>
 
@@ -227,12 +227,14 @@
         const base64 = file ? await toBase64(file) : "";
         const fileName = file ? file.name : "";
 
+        const selectedJenis = document.querySelector('input[name="jenis"]:checked');
+
         const data = new URLSearchParams();
         data.append("submissionId", document.getElementById("submissionId").value);
         data.append("nama", document.getElementById("nama").value);
         data.append("nim", document.getElementById("nim").value);
         data.append("kelompok", document.getElementById("kelompok").value);
-        data.append("jenis", document.getElementById("jenis").value);
+        data.append("jenis", selectedJenis ? selectedJenis.value : "");
         data.append("penjelasan", document.getElementById("penjelasan").value);
         data.append("fileBase64", base64);
         data.append("fileName", fileName);
@@ -262,6 +264,7 @@
           modal.show();
         }
       });
+
 
       function toBase64(file) {
         return new Promise((resolve, reject) => {
